@@ -1,142 +1,60 @@
 # Contributing Guidelines
 
-Guidelines for contributing to the project.
+Guidelines for contributing to the UBI Strapi Provider Middleware project.
 
-## Getting Started
+## Development Workflow
 
-### Setup
-```bash
-# Fork and clone
-git clone https://github.com/your-username/ubi-strapi-provider-mw.git
-cd ubi-strapi-provider-mw
+### Getting Started
+Before contributing, ensure you have followed the [Setup Guide](setup.md) to get the project running locally.
 
-# Install dependencies
-npm install
-
-# Setup pre-commit hooks
-npm run prepare
-```
-
-## Code Standards
-
-### Branch Naming
-```bash
-# Features
-feature/add-benefit-search
-feature/file-upload
-
-# Bug fixes
-fix/auth-error
-fix/database-issue
-
-# Documentation
-docs/update-api-guide
-```
+### Branching Strategy
+- Use descriptive feature branches for new work
+- Base your branch off `main`
 
 ### Commit Messages
-Use clear, descriptive commit messages:
-
-```bash
-feat: add benefit search endpoint
-fix: resolve JWT validation error
-docs: update API documentation
-refactor: clean up file upload logic
-```
+- Use clear, descriptive commit messages
+- Follow conventional commit format when possible
 
 ### Code Style
-```typescript
-// Use meaningful names
-const applicationData = await this.getApplication(id);
+- Follow existing code style and patterns
+- The project uses ESLint and Prettier for consistency
 
-// Use async/await
-async function processApplication(data: ApplicationData): Promise<Result> {
-  try {
-    const result = await this.validateData(data);
-    return result;
-  } catch (error) {
-    this.logger.error('Processing failed', error);
-    throw error;
-  }
-}
+### Pull Requests
+- Target the `main` branch
+- Provide clear description of changes
+- Reference related issues if applicable
 
-// Use proper types
-interface ApplicationRequest {
-  benefitId: string;
-  applicantData: ApplicantData;
-}
-```
+## Making Changes
 
-## Pull Request Process
+### Backend (NestJS)
+- Follow NestJS best practices (modules, controllers, services, DTOs)
+- Ensure proper error handling and validation
+- Document complex logic with comments
 
-### Before Creating PR
-1. Sync with main: `git pull origin main`
-2. Run linting: `npm run lint`
-3. Test locally: Verify functionality works
+### Database (Prisma)
+- If schema changes are needed, update `prisma/schema.prisma`
+- Generate and apply new migrations: `npx prisma migrate dev --name your_migration_name`
+- Avoid direct database modifications in production
 
-### PR Guidelines
-- Keep PRs small and focused
-- Write clear descriptions
-- Update documentation if needed
-- Test your changes
+### Environment Variables
+- If new environment variables are introduced, add them to `env.sample` with descriptions
+- Update `docs/configuration/environment-variables.md` with the new variable details
 
-## Database Changes
+## Code Quality
 
-### Schema Updates
-```bash
-# 1. Modify prisma/schema.prisma
-# 2. Create migration
-npx prisma migrate dev --name descriptive_name
+### Standards
+- Maintain TypeScript type safety
+- Follow existing patterns and conventions
+- Test changes before submitting
 
-# 3. Test migration
-npx prisma migrate reset
-```
+## Review Process
 
-## Development Commands
+- Review your own code before submitting
+- Address feedback from reviewers
+- Ensure changes work as expected
 
-```bash
-# Development
-npm run start:dev        # Start dev server
+## Need Help?
 
-# Database
-npx prisma generate     # Generate client
-npx prisma migrate dev  # Run migrations
-npx prisma studio       # Database browser
-```
-
-## File Structure
-
-```bash
-src/
-├── applications/       # Application management
-├── benefits/          # ONDC benefits
-├── auth/             # Authentication
-├── common/           # Shared utilities
-└── main.ts          # App entry point
-```
-
-## Security Guidelines
-
-- Never commit secrets
-- Validate all user input
-- Use environment variables for config
-- Encrypt sensitive data
-
-## Getting Help
-
-- Check existing documentation first
-- Search GitHub issues
-- Ask questions in pull request comments
-
-## Quick Reference
-
-```bash
-# Common workflow
-git checkout -b feature/my-feature
-# Make changes
-npm run lint
-npm run format
-git add .
-git commit -m "feat: add feature"
-git push origin feature/my-feature
-# Create PR
-```
+- Refer to the [Setup Guide](setup.md) for local development issues
+- Check [Environment Variables](configuration/environment-variables.md) for configuration problems
+- Consult the [Prisma Documentation](https://www.prisma.io/docs) for database-related questions
