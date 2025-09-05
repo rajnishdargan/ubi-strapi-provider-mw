@@ -4,39 +4,66 @@ Software and services needed before setup.
 
 ## Required Software
 
-### Install These First
-```bash
-# Node.js v20+ (for running the app)
-# Visit https://nodejs.org/ or use package manager:
-# Ubuntu: curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && sudo apt-get install -y nodejs
-# macOS: brew install node@20
-
-# PostgreSQL v13+ (for database)
-# Ubuntu: sudo apt install postgresql postgresql-contrib
-# macOS: brew install postgresql && brew services start postgresql  
-# Windows: Download from https://www.postgresql.org/
-
-# Git (for code)
-# Usually pre-installed, or: sudo apt install git / brew install git
-```
+### Core Requirements
+- **Node.js v20+** - For running the application
+- **Docker & Docker Compose** - For PostgreSQL and development environment
+- **Git** - For code management
 
 ### Verify Installation
 ```bash
-node --version    # Should show v20+
-psql --version    # Should show v13+
-git --version     # Should show version info
+node --version      # Should show v20+
+docker --version    # Should show recent version
+docker-compose --version
+git --version
 ```
 
-## Required Services
+## Required Services Setup
 
-You'll need accounts/access to:
+### 1. Strapi CMS Provider
+Set up the Strapi CMS instance using the official repository:
 
-| Service | Purpose | What You Need |
-|---------|---------|---------------|
-| **Strapi CMS** | Content management | Running instance + API token |
-| **ONDC Platform** | Benefits integration | BPP/BAP registration + IDs |
+**Repository**: [PSMRI/ubi-strapi-provider](https://github.com/PSMRI/ubi-strapi-provider)
+
+Follow the setup instructions in that repository to:
+- Configure PostgreSQL database
+- Create admin account
+- Set up custom collections
+- Generate API token
+
+### 2. ONDC Platform Registration
+Register for ONDC platform access to obtain:
+- Business Provider Platform (BPP) ID and URI
+- Business Application Platform (BAP) ID and URI
+- Domain configuration
+
+## Database Setup Recommendation
+
+### Use Docker Compose for Local Development
+```bash
+# Recommended: Use Docker Compose for PostgreSQL
+# This provides consistent environment across all platforms
+# Includes pgAdmin web interface for database management
+
+# Alternative: Use psql command line for database operations
+```
 
 ## Optional Services
+
+### External SDKs (Choose Local Setup OR Deployed Endpoints)
+
+#### UBI Verification SDK
+**Purpose**: Document and credential verification  
+**Options**:
+- **Local Setup**: Clone and run [PSMRI/ubi-verification-sdk](https://github.com/PSMRI/ubi-verification-sdk)
+- **Deployed Service**: Use existing endpoint via `VERIFICATION_SERVICE_URL`
+
+#### UBI Eligibility SDK  
+**Purpose**: Benefit eligibility processing and validation  
+**Options**:
+- **Local Setup**: Clone and run [PSMRI/ubi-eligibility-sdk](https://github.com/PSMRI/ubi-eligibility-sdk)
+- **Deployed Service**: Use existing endpoint via `ELIGIBILITY_API_URL`
+
+### Cloud Services
 
 | Service | Purpose | When Needed |
 |---------|---------|-------------|
@@ -45,13 +72,15 @@ You'll need accounts/access to:
 
 ## Next Steps
 
-Once you have the software installed:
+Once you have the prerequisites:
 1. Follow [Setup Guide](setup.md) to configure the application
 2. Use [Environment Variables](configuration/environment-variables.md) for configuration details
 
-## Need Help?
+## Documentation Links
 
 - **Node.js**: https://nodejs.org/docs/
-- **PostgreSQL**: https://www.postgresql.org/docs/  
-- **Strapi**: https://docs.strapi.io/
+- **Docker**: https://docs.docker.com/
+- **Strapi Setup**: https://github.com/PSMRI/ubi-strapi-provider
+- **Verification SDK**: https://github.com/PSMRI/ubi-verification-sdk
+- **Eligibility SDK**: https://github.com/PSMRI/ubi-eligibility-sdk  
 - **ONDC**: https://ondc.org/

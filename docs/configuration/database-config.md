@@ -2,14 +2,17 @@
 
 PostgreSQL with Prisma ORM setup.
 
-## Database Setup
+## Recommended Setup
 
-### Prerequisites
-- PostgreSQL 13+ installed
-- Database user with permissions
+### Docker Compose (Recommended)
+Use Docker Compose for consistent PostgreSQL setup:
+```bash
+# Includes PostgreSQL + pgAdmin web interface
+# See docker-compose.yml in project root
+docker-compose up postgres pgadmin -d
+```
 
 ### Connection Configuration
-
 Set the `DATABASE_URL` environment variable:
 
 ```bash
@@ -19,6 +22,10 @@ DATABASE_URL="postgresql://postgres:password@localhost:5432/ubi_dev"
 # Production
 DATABASE_URL="postgresql://user:pass@prod-db:5432/ubi_prod"
 ```
+
+### Database Management Options
+- **pgAdmin Web Interface**: http://localhost:5050 (via Docker Compose)
+- **psql Command Line**: `psql -h localhost -U postgres -d ubi_dev`
 
 ## Prisma Setup
 

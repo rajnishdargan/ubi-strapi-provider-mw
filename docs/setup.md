@@ -12,24 +12,34 @@ cd ubi-strapi-provider-mw
 npm install
 ```
 
-## 2. Setup Database
-```bash
-# Connect to PostgreSQL
-sudo -u postgres psql
+## 2. Setup Required Services
 
-# Create database and user
-CREATE DATABASE ubi_provider;
-CREATE USER ubi_user WITH PASSWORD 'secure_password';
-GRANT ALL PRIVILEGES ON DATABASE ubi_provider TO ubi_user;
-\q
+### Strapi CMS Provider
+Set up the Strapi CMS using the official repository:
+```bash
+# Clone and setup Strapi (in separate directory)
+git clone https://github.com/PSMRI/ubi-strapi-provider.git
+cd ubi-strapi-provider
+
+# Follow the setup instructions in that repository
+# This will provide your STRAPI_URL and STRAPI_TOKEN
+```
+
+### Database Setup
+**Recommended**: Use Docker Compose for PostgreSQL:
+```bash
+# Use docker-compose for consistent database setup
+# Includes PostgreSQL + pgAdmin web interface
+# Check docker-compose.yml in project root or create one
 ```
 
 ## 3. Configure Environment
+
 ```bash
 # Copy example file
 cp .env.example .env
 
-# Edit with your values
+# Edit with your values (including Strapi details from step 2)
 nano .env
 ```
 
@@ -38,7 +48,7 @@ nano .env
 ### Generate Encryption Key
 ```bash
 # Generate secure key
-openssl rand -base64 32
+node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
 ```
 
 Copy the output to `ENCRYPTION_KEY` in your `.env` file.
@@ -58,21 +68,17 @@ npm run start:dev
 
 ✅ **App running**: http://localhost:3000  
 ✅ **API docs**: http://localhost:3000/documentation  
+✅ **Strapi running**: Check your STRAPI_URL  
 ✅ **No errors** in console
 
 ## Troubleshooting
 
-### Database Connection
-```bash
-# Check PostgreSQL is running
-sudo systemctl status postgresql
+### Common Issues
+- **Database connection**: Check Docker Compose services are running
+- **Strapi connection**: Verify STRAPI_URL and STRAPI_TOKEN in .env
+- **Port conflicts**: Ensure ports 3000, 5432 are available
+- **Environment variables**: Review [Environment Variables](configuration/environment-variables.md)
 
-# Test connection
-psql -h localhost -U ubi_user -d ubi_provider
-```
-
-### Port Conflicts
-- PostgreSQL: 5432
-- Application: 3000
-
-Change ports if needed or stop conflicting services.
+### Database Management
+- **pgAdmin**: http://localhost:5050 (if using Docker Compose)
+- **psql**: `psql -h localhost -U postgres -d ubi_dev`

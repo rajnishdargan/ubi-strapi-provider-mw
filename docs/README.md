@@ -4,16 +4,11 @@ NestJS application for ONDC benefits processing with Strapi CMS integration.
 
 ## 🚀 Quick Start
 
-**New to this project?** Follow this order:
-
-1. **[Prerequisites](prerequisites.md)** - Install required software first
-2. **[Setup Guide](setup.md)** - Configure and run the application
-3. **[Environment Variables](configuration/environment-variables.md)** - Complete configuration reference
+**New to this project?** Start here:
+1. **[Prerequisites](prerequisites.md)** → **[Setup Guide](setup.md)** → Start coding
 
 **Already have everything installed?**
-
 ```bash
-# Clone and run
 git clone [repository]
 cd ubi-strapi-provider-mw
 npm install
@@ -22,31 +17,26 @@ npx prisma generate && npx prisma migrate dev
 npm run start:dev
 ```
 
-**Access**: http://localhost:3000 • **API Docs**: http://localhost:3000/documentation
+**Result**: http://localhost:3000 • **API Docs**: /documentation
 
 ## 📖 Documentation
 
-- **[Prerequisites](prerequisites.md)** - Required software (install first)
-- **[Setup Guide](setup.md)** - Step-by-step application setup  
-- **[Deploy Guide](deploy.md)** - Production deployment
+**Getting Started:**
+- **[Prerequisites](prerequisites.md)** - Software and services needed
+- **[Setup Guide](setup.md)** - Complete application setup
 - **[Contributing](contributing.md)** - Development guidelines
 
-### Reference
-- **[Environment Variables](configuration/environment-variables.md)** - All configuration options
-- **[Database Config](configuration/database-config.md)** - Prisma and PostgreSQL setup
-- **[Sample Data](sample-data.md)** - Example API requests and responses
+**Deployment & Reference:**
+- **[Deploy Guide](deploy.md)** - Production deployment
+- **[Environment Variables](configuration/environment-variables.md)** - Configuration options  
+- **[Sample Data](sample-data.md)** - API examples
 
 ## Tech Stack
+NestJS + TypeScript • PostgreSQL + Prisma • Strapi CMS • ONDC Protocol
 
-- NestJS + TypeScript
-- PostgreSQL + Prisma
-- AWS S3 / Local storage
-- Swagger/OpenAPI
-
-## Quick Help
-
-- **Database issues?** Check `DATABASE_URL` in `.env`
-- **API not working?** Visit http://localhost:3000/documentation
-- **File upload issues?** Check `FILE_STORAGE_PROVIDER` setting
+## Need Help?
+- **Setup issues?** Check [Prerequisites](prerequisites.md) and [Setup Guide](setup.md)
+- **Configuration?** See [Environment Variables](configuration/environment-variables.md)
+- **API testing?** Use `/documentation` endpoint
 
 
