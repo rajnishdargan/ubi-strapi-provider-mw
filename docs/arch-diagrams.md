@@ -4,7 +4,164 @@ Visual representations of the system architecture, data flows, and component int
 
 ## System Architecture
 
-### High-Level System Overview
+### Provider System Overview
+
+```mermaid
+graph TB
+    subgraph "Client Layer"
+        UI[Provider UI]
+        style UI fill:#e1f5fe,stroke:#01579b
+        subgraph "Key UI Components"
+            BL[Benefit List]
+            AL[Application List]
+            AD[Application Details]
+            DV[Document Verification]
+            style BL fill:#e3f2fd,stroke:#1565c0
+            style AL fill:#e3f2fd,stroke:#1565c0
+            style AD fill:#e3f2fd,stroke:#1565c0
+            style DV fill:#e3f2fd,stroke:#1565c0
+        end
+    end
+
+    subgraph "API Gateway Layer"
+        NGINX[NGINX Reverse Proxy]
+        style NGINX fill:#fff3e0,stroke:#ef6c00
+    end
+
+    subgraph "Middleware Layer - NestJS"
+        style MW fill:#fff8e1,stroke:#ffa000
+        MW[UBI Strapi Provider MW]
+        subgraph "Core Services"
+            AS[Application Service]
+            BS[Benefits Service]
+            VS[Verification Service]
+            CS[Calculation Service]
+            style AS fill:#fff8e1,stroke:#ffa000
+            style BS fill:#fff8e1,stroke:#ffa000
+            style VS fill:#fff8e1,stroke:#ffa000
+            style CS fill:#fff8e1,stroke:#ffa000
+        end
+        subgraph "Background Jobs"
+            EC[Eligibility Cron]
+            BC[Benefit Calculation Cron]
+            style EC fill:#ffecb3,stroke:#ffa000
+            style BC fill:#ffecb3,stroke:#ffa000
+        end
+        DB[(PostgreSQL)]
+        style DB fill:#e8f5e9,stroke:#2e7d32
+    end
+
+    subgraph "Strapi Layer"
+        SP[Strapi CMS]
+        style SP fill:#f3e5f5,stroke:#7b1fa2
+        subgraph "Content Types"
+            BT[Benefits]
+            FT[Forms]
+            style BT fill:#f3e5f5,stroke:#7b1fa2
+            style FT fill:#f3e5f5,stroke:#7b1fa2
+        end
+    end
+
+    subgraph "External Services"
+        S3[AWS S3]
+        SDK[Benefit Amount SDK]
+        style S3 fill:#fce4ec,stroke:#c2185b
+        style SDK fill:#fce4ec,stroke:#c2185b
+    end
+
+    UI --> BL
+    UI --> AL
+    UI --> AD
+    UI --> DV
+
+    BL --> NGINX
+    AL --> NGINX
+    AD --> NGINX
+    DV --> NGINX
+    NGINX --> MW
+
+    MW --> AS
+    MW --> BS
+    MW --> VS
+    MW --> CS
+    AS --> DB
+    BS --> DB
+    VS --> DB
+    CS --> DB
+
+    EC --> AS
+    BC --> CS
+
+    VS --> S3
+    CS --> SDK
+    BS --> SP
+    SP --> BT
+    SP --> FT
+
+    AS --> S3
+```
+
+### Application Processing Flow
+
+```mermaid
+sequenceDiagram
+    participant P as Provider
+    participant UI as Provider UI
+    participant NG as NGINX
+    participant MW as Middleware
+    participant DB as PostgreSQL
+    participant SP as Strapi
+    participant S3 as AWS S3
+    participant SDK as Benefit Amount SDK
+
+    P->>UI: Login
+    UI->>+NG: POST /auth/login
+    NG->>+MW: Forward Request
+    MW->>DB: Validate Credentials
+    MW-->>-NG: JWT Token
+    NG-->>-UI: Auth Response
+
+    P->>UI: View Applications
+    UI->>+NG: GET /applications
+    NG->>+MW: Forward Request
+    MW->>DB: Fetch Applications
+    MW-->>-NG: Applications List
+    NG-->>-UI: Display Applications
+
+    P->>UI: Open Application Details
+    UI->>+NG: GET /applications/{id}
+    NG->>+MW: Forward Request
+    MW->>DB: Fetch Application
+    MW->>SP: Fetch Benefit Details
+    MW-->>-NG: Application + Benefit Data
+    NG-->>-UI: Display Details
+
+    P->>UI: Verify Documents
+    UI->>+NG: POST /verification/verify-vcs
+    NG->>+MW: Forward Request
+    MW->>S3: Fetch Documents
+    MW->>MW: Verify Documents
+    MW->>DB: Update Status
+    MW-->>-NG: Verification Result
+    NG-->>-UI: Show Status
+
+    Note over UI,SDK: Benefit Amount Calculation (Automated)
+    MW->>+SDK: Calculate Benefit Amount
+    SDK-->>-MW: Amount Details
+    MW->>DB: Update Amount
+
+    P->>UI: Approve/Reject Application
+    UI->>+NG: PUT /applications/{id}/status
+    NG->>+MW: Forward Request
+    MW->>DB: Update Status
+    MW->>DB: Log Action
+    MW-->>-NG: Updated Status
+    NG-->>-UI: Show Confirmation
+
+    Note over MW,DB: Background Jobs
+    MW->>MW: Eligibility Cron
+    MW->>MW: Benefit Calculation Cron
+```
 
 ```mermaid
 graph TB
@@ -400,5 +557,7 @@ graph LR
 ```
 
 These diagrams provide a comprehensive view of the system architecture, data flows, and deployment patterns. Use them to understand component relationships and system behavior.
+
+
 
 

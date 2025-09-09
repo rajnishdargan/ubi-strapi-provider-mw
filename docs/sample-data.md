@@ -610,7 +610,7 @@ PORT=7000
 
 ### Production Environment
 ```bash
-DATABASE_URL="postgresql://user:pass@prod-db.com:5432/ubi_prod?schema=public"
+DATABASE_URL="postgresql://user:pass@prod-db.com:5432/ubi_strapi_provider_mw?schema=public"
 STRAPI_URL="https://cms.provider.com"
 STRAPI_TOKEN="prod_secure_token"
 BPP_ID="production.provider.com"

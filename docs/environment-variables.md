@@ -1,91 +1,85 @@
 # Environment Variables
 
-Configuration settings for the UBI Strapi Provider Middleware application.
-
-## Environment Variables Description
-
-### Required Variables
-- **`DATABASE_URL`**: PostgreSQL database connection string
-- **`STRAPI_URL`**: Base URL of the Strapi CMS instance  
-- **`STRAPI_TOKEN`**: Authentication token for Strapi API access
-- **`BPP_ID`**: ONDC Buyer Platform Provider identifier
-- **`BPP_URI`**: Base URI endpoint for the BPP API
-- **`ENCRYPTION_KEY`**: Base64 encoded key for data encryption/decryption
-
-### Optional Variables
-- **`NODE_ENV`**: Runtime environment (`development`, `production`) - Default: `development`
-- **`PORT`**: Application server port - Default: `7000`
-- **`LOG_LEVEL`**: Application log level (`error`, `warn`, `info`, `debug`) - Default: `info`
-- **`SENTRY_DSN`**: Sentry DSN for error tracking and monitoring
-
-### File Storage Configuration
-- **`FILE_STORAGE_PROVIDER`**: File storage provider (`local`, `s3`) - Default: `local`
-
-### AWS S3 Variables (Required only when `FILE_STORAGE_PROVIDER=s3`)
-- **`AWS_S3_BUCKET_NAME`**: S3 bucket name for file storage
-- **`AWS_ACCESS_KEY_ID`**: AWS access key for S3 operations
-- **`AWS_SECRET_ACCESS_KEY`**: AWS secret key for S3 operations
-- **`AWS_REGION`**: AWS region where S3 bucket is located - Default: `us-east-1`
-
-## Sample Environment File
-
-Create a `.env` file in your project root and copy the template below:
+Create a `.env` file in your project root and copy the variables below:
 
 ```bash
 # ========================================
 # UBI STRAPI PROVIDER MIDDLEWARE CONFIG
 # ========================================
 
-# Application Settings
-NODE_ENV=
-PORT=
+# Runtime environment (development, production)
+NODE_ENV=development
 
-# Database Configuration (Required)
-DATABASE_URL=
+# Application server port
+PORT=7000
 
-# Strapi CMS Integration (Required)
-STRAPI_URL=
-STRAPI_TOKEN=
+# PostgreSQL database connection string (Required)
+DATABASE_URL=postgresql://postgres:password@localhost:5432/ubi_strapi_provider_mw
 
-# ONDC Network Configuration (Required)
-BPP_ID=
-BPP_URI=
+# Base URL of the Strapi CMS instance (Required)
+STRAPI_URL=http://localhost:1337
 
-# Security (Required)
-ENCRYPTION_KEY=
+# Authentication token for Strapi API access (Required)
+STRAPI_TOKEN=your_strapi_api_token_here
 
-# File Storage
-FILE_STORAGE_PROVIDER=
+# ONDC Buyer Platform Provider identifier (Required)
+BPP_ID=your_bpp_id_here
 
-# AWS S3 Configuration (Only if FILE_STORAGE_PROVIDER=s3)
-AWS_S3_BUCKET_NAME=
-AWS_ACCESS_KEY_ID=
-AWS_SECRET_ACCESS_KEY=
-AWS_REGION=
+# Base URI endpoint for the BPP API (Required)
+BPP_URI=https://your-domain.com
 
-# Monitoring (Optional)
-SENTRY_DSN=
+# Base64 encoded key for data encryption/decryption (Required)
+# Generate with: openssl rand -base64 32
+ENCRYPTION_KEY=your_base64_encryption_key_here
 
-# Logging
-LOG_LEVEL=
+# File storage provider (local or s3)
+FILE_STORAGE_PROVIDER=local
+
+# AWS S3 bucket name for file storage (Required only if FILE_STORAGE_PROVIDER=s3)
+AWS_S3_BUCKET_NAME=your_s3_bucket_name
+
+# AWS access key for S3 operations (Required only if FILE_STORAGE_PROVIDER=s3)
+AWS_ACCESS_KEY_ID=your_aws_access_key
+
+# AWS secret key for S3 operations (Required only if FILE_STORAGE_PROVIDER=s3)
+AWS_SECRET_ACCESS_KEY=your_aws_secret_key
+
+# AWS region where S3 bucket is located
+AWS_REGION=us-east-1
+
+# Application log level (error, warn, info, debug)
+LOG_LEVEL=info
+
+# Sentry DSN for error tracking and monitoring (Optional)
+SENTRY_DSN=your_sentry_dsn_here
 ```
 
-## Setup Instructions
+## Additional Configuration Notes
 
-1. **Copy the sample template** above into a new `.env` file
-2. **Generate encryption key**: `openssl rand -base64 32`
-3. **Fill in all required values** marked as (Required) above
-4. **Configure optional values** as needed for your environment
+### Required Variables
+All variables marked as "(Required)" must be configured for the application to start properly.
+
+### Generate Encryption Key
+```bash
+openssl rand -base64 32
+```
+
+### File Storage Options
+- **local**: Files stored in the `uploads/` directory
+- **s3**: Files stored in AWS S3 bucket (requires AWS credentials)
+
+### Database URL Format
+```
+postgresql://username:password@host:port/database_name
+```
 
 ## Security Best Practices
 
 1. **Never commit `.env` files** to version control
-2. **Use strong encryption keys** - generate with `openssl rand -base64 32`
-3. **Rotate tokens regularly** especially in production environments
+2. **Use strong encryption keys** - generate with the command above
+3. **Rotate tokens regularly** especially in production
 4. **Use IAM roles** instead of access keys when running on AWS
-5. **Restrict database access** to specific IP ranges in production
-6. **Use HTTPS** for all external service URLs in production
-7. **Keep environment-specific values** in separate files
+5. **Use HTTPS** for all external service URLs in production
 
 ## Validation
 
