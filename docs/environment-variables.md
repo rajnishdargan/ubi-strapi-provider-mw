@@ -22,15 +22,38 @@ STRAPI_URL=http://localhost:1337
 # Authentication token for Strapi API access (Required)
 STRAPI_TOKEN=your_strapi_api_token_here
 
-# ONDC Buyer Platform Provider identifier (Required)
+# BPP identifier (Required)
 BPP_ID=your_bpp_id_here
 
 # Base URI endpoint for the BPP API (Required)
 BPP_URI=https://your-domain.com
 
+# BAP identifier (Required)
+BAP_ID=your_bap_id_here
+
+# Base URI endpoint for the BAP API (Required)
+BAP_URI=https://your-bap-domain.com
+
+# ONDC domain specification (Required)
+DOMAIN=ubi:financial-support
+
 # Base64 encoded key for data encryption/decryption (Required)
 # Generate with: openssl rand -base64 32
 ENCRYPTION_KEY=your_base64_encryption_key_here
+
+# UBI Provider UI URL (Required)
+PROVIDER_UBA_UI_URL=https://your-provider-ui-domain.com
+
+# UBI Verification Service configuration (Required)
+VERIFICATION_SERVICE_URL=https://your-verification-service-domain.com/verification
+DEFAULT_ISSUER_NAME=dhiway
+
+# UBI Eligibility Service configuration (Required)
+ELIGIBILITY_API_URL=http://your-eligibility-service-domain:port
+
+# Environment prefix for file names (Required)
+# Options: local, dev, prod
+FILE_PREFIX_ENV=local
 
 # File storage provider (local or s3)
 FILE_STORAGE_PROVIDER=local
@@ -52,6 +75,16 @@ LOG_LEVEL=info
 
 # Sentry DSN for error tracking and monitoring (Optional)
 SENTRY_DSN=your_sentry_dsn_here
+
+# Benefit calculations cron job configuration
+BENEFIT_CALCULATIONS_BATCH_SIZE=50
+BENEFIT_CALCULATIONS_LAST_PROCESS_HOURS=8
+BENEFIT_CALCULATIONS_CRON_TIME=*/1 * * * *
+
+# Eligibility check cron job configuration
+ELIGIBILITY_CHECK_LAST_PROCESS_HOURS=8
+ELIGIBILITY_CHECK_BATCH_SIZE=50
+ELIGIBILITY_CHECK_CRON_TIME=*/1 * * * *
 ```
 
 ## Additional Configuration Notes
@@ -72,6 +105,22 @@ openssl rand -base64 32
 ```
 postgresql://username:password@host:port/database_name
 ```
+
+### Verification Service
+- **VERIFICATION_SERVICE_URL**: Full URL to the UBI Verification SDK endpoint
+- **DEFAULT_ISSUER_NAME**: Default issuer for credential verification (e.g., "dhiway")
+
+### Eligibility Service
+- **ELIGIBILITY_API_URL**: Base URL for the UBI Eligibility SDK service
+
+### Cron Job Configuration
+- **BATCH_SIZE**: Number of records to process in each batch
+- **LAST_PROCESS_HOURS**: Look back period in hours for unprocessed records
+- **CRON_TIME**: Cron expression for job scheduling (format: minute hour day month weekday)
+
+### File Storage Configuration
+- **FILE_PREFIX_ENV**: Environment prefix for file naming (local/dev/prod)
+- **FILE_STORAGE_PROVIDER**: Storage backend (local or s3)
 
 ## Security Best Practices
 

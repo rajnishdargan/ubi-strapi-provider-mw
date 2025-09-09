@@ -5,7 +5,9 @@ The **UBI Strapi Provider Middleware** is a NestJS-based backend service that pr
 ## What It Does
 
 - **Application Management**: Lists and manages benefit applications from Strapi CMS
-- **Document Verification**: Verifies uploaded application documents
+- **Document Verification**: Verifies uploaded application documents using Verification SDK
+- **VC Verification**: Validates Verifiable Credentials (VCs) for authenticity
+- **Eligibility Checks**: Performs eligibility verification using Eligibility SDK
 - **Application Processing**: Approves or rejects benefit applications
 - **ONDC Protocol**: Implements ONDC provider standards
 
@@ -13,6 +15,8 @@ The **UBI Strapi Provider Middleware** is a NestJS-based backend service that pr
 
 This service connects:
 - **Strapi CMS** (benefits catalog management)
+- **Verification SDK** (verifies VCs and documents)
+- **Eligibility SDK** (performs eligibility checks)
 - **ONDC Network** (standardized benefit discovery)
 - **Consumer Applications** (end-user interfaces)
 
@@ -37,4 +41,6 @@ This service connects:
 
 - PostgreSQL Database
 - Strapi CMS Instance
+- UBI Verification SDK Service
+- UBI Eligibility SDK Service  
 - File Storage (Local or AWS S3)
