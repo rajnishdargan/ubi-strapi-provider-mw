@@ -34,7 +34,7 @@ graph TB
     end
 
     subgraph "External"
-        ONDC[ONDC Network]
+        ONDC[UBI / ONEST Network]
         style ONDC fill:#fce4ec,stroke:#c2185b
     end
 
@@ -51,7 +51,7 @@ graph TB
 
 ```mermaid
 sequenceDiagram
-    participant User as Provider User
+    participant User as User
     participant UI as Provider UI
     participant MW as Middleware
     participant CMS as Strapi CMS
@@ -75,7 +75,7 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    participant User as Provider User
+    participant User as User
     participant UI as Provider UI
     participant MW as Middleware
     participant DB as Database
@@ -101,13 +101,13 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    participant User as Provider User
+    participant User as User
     participant UI as Provider UI
     participant MW as Middleware
     participant DB as Database
     participant FS as File Storage
     participant CMS as Strapi CMS
-    participant ONDC as ONDC Network
+    participant ONDC as UBI / ONEST Network
 
     %% Get Form
     User->>UI: Request Form
@@ -164,7 +164,7 @@ graph LR
         DB[Database<br/>Applications]
         STRAPI_CMS[Strapi CMS<br/>Benefits & Forms]
         FS[File Storage<br/>Documents]
-        ONDC[ONDC Network<br/>Status Updates]
+        ONDC[UBI / ONEST Network<br/>Status Updates]
         style DB fill:#e8f5e9,stroke:#2e7d32
         style STRAPI_CMS fill:#f3e5f5,stroke:#7b1fa2
         style FS fill:#e8f5e9,stroke:#2e7d32

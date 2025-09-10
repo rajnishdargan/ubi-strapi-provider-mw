@@ -23,7 +23,7 @@ graph TB
         style CMS fill:#f3e5f5,stroke:#7b1fa2
     end
 
-    subgraph "ONDC Network"
+    subgraph "UBI / ONEST Network"
         ONDC[ONDC Protocol Layer]
         style ONDC fill:#e8f5e9,stroke:#2e7d32
     end
@@ -38,7 +38,7 @@ graph TB
 - **Provider UI (benefits-provider-app-ui)**: Frontend application that provides the user interface for providers to manage benefits and applications
 - **Provider MW (ubi-strapi-provider-mw)**: Middleware service that handles business logic, data processing, and integration with ONDC
 - **Provider Strapi (ubi-strapi-provider)**: CMS system that manages benefit configurations and form schemas
-- **ONDC Network**: Protocol layer that enables discovery and transactions across the network
+- **UBI / ONEST Network**: Protocol layer that enables discovery and transactions across the network
 
 ## Process Flows
 
@@ -46,11 +46,11 @@ The sequence diagram below illustrates the key processes in the system:
 
 ```mermaid
 sequenceDiagram
-    participant U as Provider User
+    participant U as User
     participant UI as Provider UI
     participant MW as Provider MW
     participant CMS as Provider Strapi
-    participant ONDC as ONDC Network
+    participant ONDC as UBI / ONEST Network
 
     %% Benefits List Flow
     U->>UI: View Benefits List
@@ -131,7 +131,7 @@ graph LR
     subgraph "Data Sources"
         CMS[Strapi CMS]
         DB[(Applications DB)]
-        ONDC[ONDC Network]
+        ONDC[UBI / ONEST Network]
         style CMS fill:#f3e5f5,stroke:#7b1fa2
         style DB fill:#e8f5e9,stroke:#2e7d32
         style ONDC fill:#e8f5e9,stroke:#2e7d32
@@ -168,6 +168,6 @@ graph LR
 3. **Data Sources**:
    - Strapi CMS: Stores benefit and form configurations
    - Applications DB: Stores application data
-   - ONDC Network: Enables network-wide operations
+   - UBI / ONEST Network: Enables network-wide operations
 
 These diagrams provide a clear visualization of the system's architecture and its operations. They serve as a reference for understanding component interactions and data flows within the Provider system.

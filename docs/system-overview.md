@@ -17,7 +17,7 @@ This service connects:
 - **Strapi CMS** (benefits catalog management)
 - **Verification SDK** (verifies VCs and documents)
 - **Eligibility SDK** (performs eligibility checks)
-- **ONDC Network** (standardized benefit discovery)
+- **UBI / ONEST Network** (standardized benefit discovery)
 - **Consumer Applications** (end-user interfaces)
 
 ## Technology Stack
