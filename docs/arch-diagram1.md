@@ -28,9 +28,9 @@ graph TB
         style FS fill:#e8f5e9,stroke:#2e7d32
     end
 
-    subgraph "CMS"
-        CMS[Strapi CMS<br/>Content Management]
-        style CMS fill:#f3e5f5,stroke:#7b1fa2
+    subgraph "CMS Layer"
+        STRAPI[Strapi CMS<br/>Content Management]
+        style STRAPI fill:#f3e5f5,stroke:#7b1fa2
     end
 
     subgraph "External"
@@ -41,7 +41,7 @@ graph TB
     UI --> MW
     MW --> DB
     MW --> FS
-    MW --> CMS
+    MW --> STRAPI
     MW --> ONDC
 ```
 
@@ -150,10 +150,10 @@ graph LR
     end
 
     subgraph "API Endpoints"
-        AUTH_API[/auth/login]
-        BEN_API[/benefits]
-        APP_API[/applications]
-        FORM_API[/benefits/{id}/form]
+        AUTH_API["/auth/login"]
+        BEN_API["/benefits"]
+        APP_API["/applications"]
+        FORM_API["/benefits/form"]
         style AUTH_API fill:#fff8e1,stroke:#ffa000
         style BEN_API fill:#fff8e1,stroke:#ffa000
         style APP_API fill:#fff8e1,stroke:#ffa000
@@ -162,22 +162,22 @@ graph LR
 
     subgraph "Data Sources"
         DB[Database<br/>Applications]
-        CMS[Strapi CMS<br/>Benefits & Forms]
+        STRAPI_CMS[Strapi CMS<br/>Benefits & Forms]
         FS[File Storage<br/>Documents]
         ONDC[ONDC Network<br/>Status Updates]
         style DB fill:#e8f5e9,stroke:#2e7d32
-        style CMS fill:#f3e5f5,stroke:#7b1fa2
+        style STRAPI_CMS fill:#f3e5f5,stroke:#7b1fa2
         style FS fill:#e8f5e9,stroke:#2e7d32
         style ONDC fill:#fce4ec,stroke:#c2185b
     end
 
     LOGIN --> AUTH_API
-    VIEW_BEN --> BEN_API --> CMS
+    VIEW_BEN --> BEN_API --> STRAPI_CMS
     VIEW_APP --> APP_API --> DB
     VIEW_DET --> APP_API --> DB
     SUBMIT --> APP_API --> DB
     SUBMIT --> APP_API --> FS
-    FORM_API --> CMS
+    FORM_API --> STRAPI_CMS
     
     APP_API --> ONDC
 ```
